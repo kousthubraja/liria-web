@@ -14,6 +14,8 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import { storeArticle, storeNFT } from "../utility/storage";
+import { createPost } from "../utility/blockchain";
+import { LoadingButton } from "@mui/lab";
 
 
 
@@ -30,6 +32,7 @@ const Account: NextPage = () => {
     const [loadingNetwork, setLoadingNetwork] = useState<boolean>(false);
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<any>("");
+    const [disabled, setDisabled] = useState<boolean>(false);
 
     const { wallet, provider } = useWeb3();
 
@@ -86,12 +89,12 @@ const Account: NextPage = () => {
                 component="main"
                 sx={{
                     flexGrow: 1,
-                    py: 8,
+                    py: 4,
                     minHeight: '100vh',
                 }}
             >
                 <Container maxWidth="md">
-                    <Typography>Publish Article</Typography>
+                    <Typography variant="h4">Publish Article</Typography>
                     <Grid container width="100%" direction="row" alignItems="center">
                         <Grid item xs={1}><Typography variant="subtitle1">Title</Typography></Grid>
                         <Grid item xs>
@@ -101,19 +104,29 @@ const Account: NextPage = () => {
                     {/* <Divider sx={{ mb: 3 }} /> */}
                     <MdEditor style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={(e) => setContent(e)} />
                     <Divider sx={{ mb: 3 }} />
-                    <Button
+                    <LoadingButton
                             size="large"
                             variant="contained"
+                            loading={disabled}
                             onClick={async () => {
+                                setDisabled(true)
                                 console.log(title, content?.html, wallet?.address)
                                 const walletAddress = wallet?.address ? wallet.address : '';
-                                const res = await storeArticle(title, content?.html, walletAddress)
-                                console.log(res)
-                                // storeNFT(title, content, wallet)
+                                try {
+                                    const res: any = await storeArticle(title, content?.text, walletAddress)
+                                    await createPost(res['IpfsHash'])
+                                } catch (e: any) {
+                                    const errorMessage =  e['message'] ? e['message'] : JSON.stringify(e);
+                                    alert('Failed to publish article: ' + errorMessage)
+                                } finally {
+                                    setDisabled(false)
+                                }
+                                
+                                // res['IpfsHash']
                             }}
                         >
                             Publish
-                        </Button>
+                        </LoadingButton>
                 </Container>
             </Box>
         </>

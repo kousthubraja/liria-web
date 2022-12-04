@@ -1,7 +1,7 @@
 import { Network } from "@ethersproject/networks";
 import { BaseProvider } from "@ethersproject/providers";
 import { Box, Container, Divider, Grid, Tab, Tabs, Typography } from "@mui/material";
-import { BigNumber } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { formatEther } from "ethers/lib/utils";
 import { NextPage } from "next";
 import Head from "next/head";
@@ -10,6 +10,7 @@ import { AccountTransactions } from "../components/account/account-transactions"
 import { MainLayout } from "../components/main-layout";
 import { NETWORK_COIN_SYMBOL } from "../config";
 import { useWeb3 } from "../hooks/use-web3";
+import * as PushAPI from "@pushprotocol/restapi";
 
 const tabs = [
     { label: 'Transactions', value: 'transactions' },
@@ -24,6 +25,10 @@ const Account: NextPage = () => {
     const [loadingNetwork, setLoadingNetwork] = useState<boolean>(false);
 
     const { wallet, provider } = useWeb3();
+    
+    // const smartContract = new ethers.Contract('0xxx', abi, provider);
+    // const contractWithSigner = smartContract.connect(signer);
+
 
     const getBalance = async (provider: BaseProvider, address: string): Promise<BigNumber> => {
         if (provider && address) {
@@ -38,6 +43,14 @@ const Account: NextPage = () => {
         }
         return null;
     };
+
+    const getNotifications = async (wallet: string | void) => {
+        const notifications = await PushAPI.user.getFeeds({
+            user: `eip155:5:${wallet}`,
+            env: 'staging'
+          });
+        console.log(notifications)
+    }
 
     useEffect(() => {
         if (wallet?.address && provider) {
@@ -62,6 +75,7 @@ const Account: NextPage = () => {
             }).finally(() => {
                 setLoadingBalance(false);
             });
+            getNotifications(wallet.address)
         }
     }, [wallet, provider]);
 
@@ -146,26 +160,13 @@ const Account: NextPage = () => {
                         </Grid>
                     </Grid>
 
-                    <Tabs
-                        indicatorColor="primary"
-                        onChange={(event: ChangeEvent<{}>, value: string) => setCurrentTab(value)}
-                        scrollButtons="auto"
-                        textColor="primary"
-                        value={currentTab}
-                        variant="scrollable"
-                        sx={{ mt: 3 }}
-                    >
-
-                        {tabs.map(({ label, value }) => (
-                            <Tab
-                                key={value}
-                                label={label}
-                                value={value}
-                            />
-                        ))}
-                    </Tabs>
+                    
                     <Divider sx={{ mb: 3 }} />
-                    {currentTab === 'transactions' && <AccountTransactions />}
+
+                    <Grid container>
+
+                    </Grid>
+                    
                 </Container>
             </Box>
         </>

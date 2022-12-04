@@ -5,61 +5,31 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import Image from 'next/image';
 
 const footerSections = [
-    {
-        title: 'Use dApp',
-        links: [
-            {
-                title: 'Browse Components',
-                href: '/browse'
-            },
-            {
-                title: 'Documentation',
-                href: '/docs/welcome'
-            }
-        ]
-    },
-    {
-        title: 'Community',
-        links: [
-            {
-                title: 'Discord',
-                href: 'https://discord.com/invite/hCqMm8m34p'
-            },
-            {
-                title: 'Telegram',
-                href: 'https://t.me/abc'
-            },
-            {
-                title: 'Youtube',
-                href: 'https://www.youtube.com/channel/abc'
-            }
-        ],
-    },
-    {
-        title: 'Developers',
-        links: [
-            {
-                title: 'Get started',
-                href: '/docs/welcome'
-            },
-            {
-                title: 'Documentation',
-                href: '/docs/welcome'
-            },
-            {
-                title: 'Tutorials',
-                href: '/tutorials'
-            },
-            {
-                title: 'Learn by doing',
-                href: '/learn-by-doing'
-            },
-            {
-                title: 'Set up local environment',
-                href: '/setup-local-environment'
-            }
-        ]
-    },
+    // {
+    //     title: 'Developers',
+    //     links: [
+    //         {
+    //             title: 'Get started',
+    //             href: '/docs/welcome'
+    //         },
+    //         {
+    //             title: 'Documentation',
+    //             href: '/docs/welcome'
+    //         },
+    //         {
+    //             title: 'Tutorials',
+    //             href: '/tutorials'
+    //         },
+    //         {
+    //             title: 'Learn by doing',
+    //             href: '/learn-by-doing'
+    //         },
+    //         {
+    //             title: 'Set up local environment',
+    //             href: '/setup-local-environment'
+    //         }
+    //     ]
+    // },
     {
         title: 'About dApp',
         links: [
@@ -105,54 +75,19 @@ export const Footer: FC = (props) => {
                             xs={6}
                             md={6}
                         >
-                            <Image
-                                src="/images/slcdao-logo.png"
+                            {/* <Image
+                                src="/images/fire-pen.png"
                                 width={41}
                                 height={41}
                                 alt="SLCDAO logo"
-                            />
+                            /> */}
                         </Grid>
                         <Grid item
                             xs={6}
                             md={6}
                             flexDirection="row"
                         >
-                            <Grid
-                                container
-                                spacing={2}
-                                justifyContent="flex-end"
-                            >
-                                <Grid
-                                    item
-                                    sm={1}
-                                    md={1}
-                                >
-                                    <IconButton
-                                        sx={{
-                                            color: 'white',
-                                        }}
-                                    >
-                                        <GitHubIcon
-                                            fontSize="medium"
-                                        />
-                                    </IconButton>
-                                </Grid>
-                                <Grid
-                                    item
-                                    sm={1}
-                                    md={1}
-                                >
-                                    <IconButton
-                                        sx={{
-                                            color: 'white',
-                                        }}
-                                    >
-                                        <TwitterIcon
-                                            fontSize="medium"
-                                        />
-                                    </IconButton>
-                                </Grid>
-                            </Grid>
+                            
                         </Grid>
                         {footerSections.map((section, index) => (
                             <Grid

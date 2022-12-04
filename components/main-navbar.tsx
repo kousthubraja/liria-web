@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Container, IconButton, Toolbar, Link, Avatar, ButtonBase, FormControlLabel, FormGroup } from '@mui/material';
+import { AppBar, Box, Button, Container, IconButton, Toolbar, Link, Avatar, ButtonBase, FormControlLabel, FormGroup, Typography } from '@mui/material';
 import { FC, useRef, useState } from 'react';
 import NextLink from 'next/link';
 import { Menu } from '@mui/icons-material';
@@ -112,12 +112,21 @@ export const MainNavbar: FC<MainNavbarProps> = (props) => {
                             >
                                 <a>
                                     <Image
-                                        src="/images/slcdao-logo.png"
+                                        src="/images/fire-pen.png"
                                         width={41}
                                         height={41}
                                         alt="SLCDAO logo"
                                     />
                                 </a>
+                            </Box>
+                        </NextLink>
+                        <NextLink href="/">
+                        <Box
+                                sx={{
+                                    margin: 2,
+                                }}
+                            >
+                            <Typography variant='h2'>Liria</Typography>
                             </Box>
                         </NextLink>
                         <Box sx={{ flexGrow: 1 }} />
@@ -142,15 +151,42 @@ export const MainNavbar: FC<MainNavbarProps> = (props) => {
                             }}
                         >
                             <NextLink
-                                href="/account"
+                                href="/"
                                 passHref
                             >
                                 <Link
                                     color="textSecondary"
                                     underline="none"
                                     variant="subtitle2"
+                                    sx={{ ml: 2 }}
                                 >
-                                    Account
+                                    Posts
+                                </Link>
+                            </NextLink>
+                            <NextLink
+                                href="/write"
+                                passHref
+                            >
+                                <Link
+                                    color="textSecondary"
+                                    underline="none"
+                                    variant="subtitle2"
+                                    sx={{ ml: 2 }}
+                                >
+                                    Write
+                                </Link>
+                            </NextLink>
+                            <NextLink
+                                href="/about"
+                                passHref
+                            >
+                                <Link
+                                    color="textSecondary"
+                                    underline="none"
+                                    variant="subtitle2"
+                                    sx={{ ml: 2 }}
+                                >
+                                    About
                                 </Link>
                             </NextLink>
                             <ThemeUISwitch sx={{ m: 1 }} checked={themeSwitch} onChange={handleThemeSwitch} name="themeswitch" />

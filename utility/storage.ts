@@ -38,5 +38,5 @@ export async function storeArticle(title: string, content: string, walletAddress
         {
             title, content, walletAddress
         }, config);
-    console.log(respone)
+    return respone.data;
 }

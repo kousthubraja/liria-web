@@ -5,13 +5,17 @@ export interface MyWallet {
 }
 
 export interface PostFromChain {
+    articleId?: number,
     cid?: string;
-    creator?: string;
+    author?: string;
     validityScore?: number;
 }
 
 export interface Post {
-    cid?: string;
-    creator?: string;
+    articleId?: number,
+    cid?: string,
+    title?: string;
+    content: string;
+    author?: string;
     validityScore?: number;
 }
